@@ -24,19 +24,15 @@ export async function POST(request: Request) {
             if (saturation > 0.4) {
                 // High Saturation + Cool = Sharp / Modern / Electronic influence
                 terms.push('modern trap', 'melodic rap', 'rage rap');
-            } else {
+            }
                 // Low Saturation + Cool = Dark / Moody
                 terms.push('dark r&b', 'drill', 'cloud rap', 'atmospheric hip hop');
-            }
         }
 
         // Add vibe modifiers based on Brightness
         if (brightness > 0.7) terms.push('upbeat', 'mainstream');
         else if (brightness < 0.3) terms.push('underground', 'moody', 'night');
 
-        // Base query construction
-        // Base query construction - Keep it simpler to avoid breaking YouTube search
-        // We rely on "official music video" and post-filtering
         const baseQuery = terms.join(' ') + ' "official music video"';
 
         console.log(`Generated Query: "${baseQuery}" for features (b=${brightness.toFixed(2)}, s=${saturation.toFixed(2)}, w=${warmth.toFixed(2)})`);
@@ -53,7 +49,6 @@ export async function POST(request: Request) {
 
         videos = videos.filter(v => {
             const t = v.title.toLowerCase();
-            const c = v.channelTitle.toLowerCase();
             const isBlacklisted = blacklist.some(term => t.includes(term));
 
             return !isBlacklisted;
