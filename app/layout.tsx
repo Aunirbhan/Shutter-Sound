@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Image+Song",
-  description: "Made with the help of create next app",
+  title: "ShutterSound",
+  description: "Upload a photo, get a song that matches it.",
 };
 
 export default function RootLayout({
